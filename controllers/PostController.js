@@ -1,6 +1,7 @@
 import { WrapAsync } from "../utils/WrapAsync.js";
 import { ExpressErr } from "../utils/ExpressErr.js";
 import { PostModel } from "../models/postModel.js";
+import { cloudinary } from "../Cloudinary.js";
 
 // get all Post
 const getPosts = WrapAsync(async (req, res) => {
@@ -27,6 +28,7 @@ const addPost = WrapAsync(async (req, res) => {
     tags,
     user: req.user.id,
     image: req.file.path,
+    public_id: result.public_id,
   };
 
   let newPost = await PostModel.create(payLoad);
@@ -57,6 +59,8 @@ const distroyPost = WrapAsync(async (req, res) => {
   if (postId.user.toString() !== req.user.id) {
     throw new ExpressErr(403, "Only Owner can delete");
   }
+  let cloudImgDel = await cloudinary.uploader.destroy(postId.public_id);
+  console.log(cloudImgDel);
   let deletedPost = await PostModel.findByIdAndDelete(id);
 });
 
