@@ -33,7 +33,7 @@ const signUpController = WrapAsync(async (req, res) => {
   await sendEmail({
     to: email,
     subject: `Welcome ${username} 🎉`,
-    html: `  <div style="font-family:sans-sarif; padding:20px">
+    html: ` <div style="font-family:sans-sarif; padding:20px">
     <h1>Welcome ${username} 🎉</h1>
     <p>your account has been created successfully.</p>
     <ul>
