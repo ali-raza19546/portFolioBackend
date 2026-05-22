@@ -21,14 +21,20 @@ const addPost = WrapAsync(async (req, res) => {
   if (!title || !content || !tags) {
     throw new ExpressErr(400, "please Fill all fileds!");
   }
+  const file = req.file.path;
+  let result = await cloudinary.uploader.upload(file, {
+    folder: "SocialMediaPosts",
+  });
+  const imgUrl = result.secure_url;
+  const pb_id = result.public_id;
 
   let payLoad = {
     title,
     content,
     tags,
     user: req.user.id,
-    image: req.file.path,
-    public_id: result.public_id,
+    image: imgUrl,
+    public_id: pb_id,
   };
 
   let newPost = await PostModel.create(payLoad);
