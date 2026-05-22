@@ -15,13 +15,15 @@ const signUpController = WrapAsync(async (req, res) => {
     throw new ExpressErr(409, "User already exist!");
   }
 
+  let pfImage = req.file ? req.file.path : null;
+
   let salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
   const payLoad = {
     username,
     email,
     password: hashPassword,
-    profileImg,
+    profileImg: pfImage,
   };
 
   // Post ki id user ke pas/ user ki id post ke pas
