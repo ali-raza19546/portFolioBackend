@@ -7,12 +7,16 @@ import sendEmail from "../utils/SendEmail.js";
 import { cloudinary } from "../Cloudinary.js";
 
 const signUpController = WrapAsync(async (req, res) => {
-  let { username, email, password, pfImage } = req.body;
-  let imgUrl = "";
-  if (pfImage) {
-    const uploadResponse = await cloudinary.uploader.upload(pfImage);
-    imgUrl = uploadResponse.secure_url;
+  let { username, email, password } = req.body;
+
+  if (!req.file) {
+    throw new ExpressErr(400, "Profile image is required");
   }
+
+  // upload image to cloudinary
+  const result = await cloudinary.uploader.upload(req.file.path, {
+    folder: "profileImages",
+  });
 
   const existingUser = await User.findOne({ email });
   if (!username || !email || !password) {
@@ -27,7 +31,7 @@ const signUpController = WrapAsync(async (req, res) => {
     username,
     email,
     password: hashPassword,
-    profileImg: imgUrl,
+    profileImg: result.secure_url,
   };
 
   // Post ki id user ke pas/ user ki id post ke pas
