@@ -32,7 +32,18 @@ const signUpController = WrapAsync(async (req, res) => {
 
   await sendEmail({
     to: email,
-    subject: `<div style="max-width:600px; margin:auto; padding:30px; background:#f5f5f5; border-radius:10px; font-family:Arial;"> <h1 style="color:#4f46e5;"> Welcome, {{username}} 🎉 </h1> <p style="font-size:16px; color:#333;"> Your account has been successfully created. Now you can connect with people and enjoy all features of our platform. </p> <ul style="line-height:30px; color:#444;"> <li>📸 Share Posts</li> <li>❤️ Like Posts</li> <li>💬 Add Comments</li> <li>👥 Follow Friends</li> <li>🔔 Get Notifications</li> <li>🌍 Explore Trending Content</li> </ul> <h3 style="margin-top:30px; color:#111;"> We are excited to have you in our community 🚀 </h3> </div>`,
+    subject: `Welcome ${username} 🎉`,
+    html: ` <div style="max-width:600px; margin:auto; padding:30px; background:#f5f5f5; border-radius:10px; font-family:Arial;">
+     <h1 style="color:#4f46e5;"> Welcome, {{username}} 🎉 </h1> 
+     <p style="font-size:16px; color:#333;"> Your account has been successfully created. Now you can connect with people and enjoy all features of our platform. </p>
+      <ul style="line-height:30px; color:#444;"> 
+      <li>📸 Share Posts</li> <li>❤️ Like Posts</li>
+       <li>💬 Add Comments</li> 
+       <li>👥 Follow Friends</li>
+        <li>🔔 Get Notifications</li>
+         <li>🌍 Explore Trending Content</li> 
+         </ul> 
+         <h3 style="margin-top:30px; color:#111;"> We are excited to have you in our community 🚀 </h3> </div>`,
   });
 
   res.status(200).json({
