@@ -32,8 +32,26 @@ const signUpController = WrapAsync(async (req, res) => {
 
   await sendEmail({
     to: email,
-    text: "Thank's for signUp",
-    subject: `Hi ${username} Welcome🎉to our website`,
+    subject: `Welcome ${username} 🎉`,
+    html: `  <div style="font-family:sans-sarif; padding:20px">
+    <h1>Welcome ${username} 🎉</h1>
+    <p>your account has been created successfully.</p>
+    <ul>
+    <li>
+    ✨ Create Posts
+    </li>
+    <li>
+    ✨ 💬 Connect with friends
+    </li>
+    <li>
+    ♥ Like & comment
+    </li>
+    <li>
+    📸 Share your moments
+    </li>
+    </ul>
+     </div>
+    <h3>We' re excited to have you🚀</h3>`,
   });
 
   res.status(200).json({
