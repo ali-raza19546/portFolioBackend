@@ -14,10 +14,6 @@ const signUpController = WrapAsync(async (req, res) => {
   } else if (existingUser) {
     throw new ExpressErr(409, "User already exist!");
   }
-  let pfImage =
-    req.file.path === undefined
-      ? "https://tse1.mm.bing.net/th/id/OIP.zSjnJGFe_TxQyoSX48_Z6wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
-      : req.file.path;
 
   let salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
@@ -25,7 +21,7 @@ const signUpController = WrapAsync(async (req, res) => {
     username,
     email,
     password: hashPassword,
-    profileImg: pfImage,
+    profileImg,
   };
 
   // Post ki id user ke pas/ user ki id post ke pas
