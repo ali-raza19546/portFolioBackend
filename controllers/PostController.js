@@ -5,10 +5,9 @@ import { cloudinary } from "../Cloudinary.js";
 
 // get all Post
 const getPosts = WrapAsync(async (req, res) => {
-  const allPosts = await PostModel.find({}).populate(
-    "user",
-    "username profileImg",
-  );
+  const allPosts = await PostModel.find({})
+    .populate("user", "username profileImg")
+    .sort({ createdAt: -1 });
   if (!allPosts) {
     throw new ExpressErr(404, "Post Not Found!");
   }
