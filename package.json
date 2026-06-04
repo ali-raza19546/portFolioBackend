@@ -1,16 +1,14 @@
 {
-  "engines" : {
-"node" : "v22.17.0"
+  "engines": {
+    "node": "v22.17.0"
   },
   "name": "apnacollege",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "type": "module",
-    "start" : "node app.js",
-    "versel-start" : "node app.js",
-    "dev" : "nodemon app.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +31,7 @@
     "multer": "^2.1.1",
     "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^8.0.6",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "socket.io": "^4.8.3"
   }
 }
