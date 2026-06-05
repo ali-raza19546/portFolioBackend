@@ -15,15 +15,6 @@ app.use(
   }),
 );
 app.use("/contact", contactRoute);
-
-app.use((err, req, res, next) => {
-  let { statusCode = 500, message = "something went wrong!" } = err;
-
-  res.status(Number(statusCode)).json({
-    success: false,
-    message,
-  });
-});
 let isConnected = false;
 connectDb()
   .then(() => {
@@ -39,6 +30,14 @@ app.use((req, res, next) => {
     connectDb();
   }
   next();
+});
+app.use((err, req, res, next) => {
+  let { statusCode = 500, message = "something went wrong!" } = err;
+
+  res.status(Number(statusCode)).json({
+    success: false,
+    message,
+  });
 });
 
 export default app;
